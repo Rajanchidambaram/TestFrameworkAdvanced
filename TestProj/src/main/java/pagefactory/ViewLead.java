@@ -12,10 +12,19 @@ public class ViewLead extends PageAbstract{
 	}
 	
 	@FindBy(how=How.LINK_TEXT,using="Delete")
-	WebElement deleteBtn;
+	WebElement DeleteBtn;
+	
+	@FindBy(how=How.ID,using="viewLead_companyName_sp")
+	WebElement LeadLbl;
+	
+	public ViewLead getLeadLabel() {
+		getText(LeadLbl);
+		return this;
+		
+	}
 	
 	public MyLeads clickDeleteButton() {
-		click(deleteBtn);
+		click(DeleteBtn);
 		return new MyLeads();
 		
 	}

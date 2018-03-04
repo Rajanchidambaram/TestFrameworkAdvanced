@@ -12,7 +12,7 @@ public class LoginPage extends PageAbstract {
 		PageFactory.initElements(eventDriver, this);
 	}
 	
-	@FindBy(how=How.ID,using="username")
+	@FindBy(how=How.ID,using="username2")
 	WebElement eleUserNameTBox;
 	
 	@FindBy(how=How.ID,using="password")
@@ -21,13 +21,13 @@ public class LoginPage extends PageAbstract {
 	@FindBy(how=How.XPATH,using="//input[@class='decorativeSubmit']")
 	WebElement eleSubmitBtn;
 	
-	public LoginPage enterUserName() {
-		Type(eleUserNameTBox, "DemoSalesManager");
+	public LoginPage enterUserName(String uName) {
+		Type(eleUserNameTBox, uName);
 		return this;
 		}
 	
-	public LoginPage enterPassWord() {
-		Type(elePassWordTBox, "crmsfa");
+	public LoginPage enterPassWord(String pwd) {
+		Type(elePassWordTBox, pwd);
 		return this;
 		}
 	

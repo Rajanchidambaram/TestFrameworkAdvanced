@@ -1,6 +1,8 @@
 package base;
 import org.openqa.selenium.WebElement;
 
+import java.io.File;
+import java.io.IOException;
 import java.sql.Driver;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -40,6 +43,7 @@ public class WrapperMethods extends OverrideListener implements WrapperInterface
 		{
 		case "id":
 			ele=eventDriver.findElement(By.id(locatorValue));
+			
 
 			break;
 
@@ -193,15 +197,17 @@ public class WrapperMethods extends OverrideListener implements WrapperInterface
 		switch(browser)
 		{
 			case "chrome":
-			System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
+			/*System.setProperty("webdriver.chrome.driver", "./drivers/chromedriver.exe");
 			driver = new ChromeDriver();
 			eventDriver =new EventFiringWebDriver(driver);
 			OverrideListener handler=new OverrideListener();
 			eventDriver.register(handler);
 			eventDriver.get(URL);
 			eventDriver.manage().window().maximize();
-			eventDriver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);
+			eventDriver.manage().timeouts().implicitlyWait(7, TimeUnit.SECONDS);*/
 			break;
+			
+			
 
 			default:
 
@@ -278,6 +284,31 @@ public class WrapperMethods extends OverrideListener implements WrapperInterface
 	public String getAttribute(WebElement elem, String attribute){
 		String actualattributevalue=elem.getAttribute(attribute);
 		return actualattributevalue;
+	}
+	
+
+	public EventFiringWebDriver eventFiringWebdriver() {
+		return eventDriver;
+		
+	}
+	
+	
+	public long takeSnap() {
+		
+		long number=(long)Math.floor(Math.random()*900000000L)+100000000l;
+		
+		try {
+			FileUtils.copyFile(eventDriver.getScreenshotAs(OutputType.FILE),new File("./snaps/"+number+".jpg"));
+		} catch (WebDriverException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return number;
+		
+		
 	}
 	/*
 	Type

@@ -18,13 +18,17 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.events.WebDriverEventListener;
 import org.openqa.selenium.support.ui.UnexpectedTagNameException;
 
-public class OverrideListener implements WebDriverEventListener {
+import reporting.XtentReporting;
 
+public abstract class OverrideListener extends XtentReporting implements WebDriverEventListener {
+
+	
+	
 	@Override
 	public void afterAlertAccept(WebDriver arg0) {
 		// TODO Auto-generated method stub
-		
 		System.out.println("Happened: afterAlertAccept"+arg0);
+		
 		
 	}
 
@@ -39,13 +43,14 @@ public class OverrideListener implements WebDriverEventListener {
 	public void afterChangeValueOf(WebElement arg0, WebDriver arg1, CharSequence[] arg2) {
 		// TODO Auto-generated method stub
 		System.out.println("For the webelement "+arg0+" after change is"+arg2);
-		
+		reportStep("Value"+arg0+" is changed successfully", "PASS");
 	}
 
 	@Override
 	public void afterClickOn(WebElement arg0, WebDriver arg1) {
 		// TODO Auto-generated method stub
 		System.out.println("webelement "+arg0+"is clicked");
+		reportStep("Element"+arg0+ "is clicked successfully", "PASS");
 	}
 
 	@Override
@@ -76,6 +81,7 @@ public class OverrideListener implements WebDriverEventListener {
 	public void afterNavigateTo(String arg0, WebDriver arg1) {
 		// TODO Auto-generated method stub
 		System.out.println("The browser is launched with URL "+arg0);
+		reportStep("URL launched successfully", "PASS");
 		
 	}
 
@@ -156,16 +162,20 @@ public class OverrideListener implements WebDriverEventListener {
 	
 		if(arg0 instanceof NoSuchElementException) {
 			System.out.println("Element cannt be located"+arg0.getMessage());
+			reportStep("No such elment exception", "fail");
 		}
 		else if (arg0 instanceof NoSuchWindowException) {
 			System.out.println("Windows cannot be identified"+arg0.getMessage());
+			
 		}
 		else if (arg0 instanceof InvalidSelectorException) {
 			System.out.println("Given selector is invalid"+arg0.getMessage());
+			reportStep("Invalid selector exception", "fail");
 		}
 		else if (arg0 instanceof ElementNotInteractableException)
 		{
 			System.out.println("Given Element is not interactable"+arg0.getMessage());
+			reportStep("Element not interactable exception", "fail");
 		}
 		else if (arg0 instanceof ElementNotSelectableException)
 		{
@@ -197,6 +207,12 @@ public class OverrideListener implements WebDriverEventListener {
 		{
 			System.out.println("The argument is invalid"+arg0.getMessage());
 		}
+	}
+
+	@Override
+	public long takeSnap() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	

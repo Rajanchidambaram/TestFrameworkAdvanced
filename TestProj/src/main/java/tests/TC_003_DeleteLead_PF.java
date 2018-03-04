@@ -9,20 +9,24 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import base.*;
+import pagefactory.HomePage;
 import pagefactory.LoginPage;
 
 public class TC_003_DeleteLead_PF extends Annotations{
-	public static WebElement elem;
 	
-	@Test
-	public void createLead() throws IOException  {
-		 new LoginPage()
-		.enterUserName()
-		.enterPassWord()
-		.submitForm()
+	@BeforeClass
+	public void readTestData()
+	{
+		excelName="./data/TC_Delete.xlsx";
+	}
+	
+	@Test(dataProvider="dataFeed")
+	public void deleteLead(String username,String password) throws IOException  {
+		 new HomePage()
 		.clickCrmsfaLink()
 		.clickLeadsLink()
 		.clickFindLeadsTab()
@@ -37,15 +41,19 @@ public class TC_003_DeleteLead_PF extends Annotations{
 		.checkErrorMessage();
 		}
 	
-	/*@DataProvider(name="fetchData")
+	
+	
+	@DataProvider(name="fetchData")
 	public String[][] getData() {
 		
 		String str[][]=new String[2][2];
-		str[0][1]="DemoSalesManager";
-		str[0][2]="crmsfa";
+		str[0][0]="DemoSalesManager";
+		str[0][1]="crmsfa";
+		str[1][0]="DemoSalesManager";
+		str[1][1]="crmsfa";
 		return str;
 		
-	}*/
+	}
 	
 	
 	

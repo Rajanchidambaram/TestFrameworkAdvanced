@@ -14,9 +14,18 @@ public class LeadsPage extends PageAbstract{
 	@FindBy(how=How.XPATH,using="//a[text()='Leads']")
 	WebElement leadsTabLink;
 	
+	@FindBy(how=How.LINK_TEXT,using="Create Lead")
+	WebElement createLeadLink;
+	
 	public MyLeads clickLeadsLink() {
 		
 		click(leadsTabLink);
 		return new MyLeads();
+	}
+	
+	
+	public CreateLead clickCreateLead() {
+		click(createLeadLink);
+		return new CreateLead();
 	}
 }
